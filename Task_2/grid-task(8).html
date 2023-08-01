@@ -49,6 +49,20 @@
             <h4>CSS Task</h4>
             <p>Hello World :)</p>
         </div>
+
+        <div class="grid-item">
+            <!-- 1. TODO(optional): change img, header and text -->
+            <img src="./web_image.jpg" alt="Web_Design" width="100%">
+            <h4>CSS Task</h4>
+            <p>Hello World :)</p>
+        </div>
+
+        <div class="grid-item">
+            <!-- 1. TODO(optional): change img, header and text -->
+            <img src="./web_image.jpg" alt="Web_Design" width="100%">
+            <h4>CSS Task</h4>
+            <p>Hello World :)</p>
+        </div>
         
     </div>
 </body>
@@ -57,7 +71,30 @@
     body {
         font-family: Poppins;
         font-size: 24px;
+        background-color: #151414;
     }
+
+        /* Designing for scroll-bar */
+        ::-webkit-scrollbar {
+            width: 0.6rem;
+        }
+     
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: rgb(110, 110, 110);
+            border-radius: 0.5rem;
+        }
+     
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: black;
+            border-radius: 1rem;
+        }
+     
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #302d2d;
+        }
 
     /* grid items  */
 
@@ -75,9 +112,9 @@
     .grid-container {
         display: grid;
         /* 5. TODO : Add grid-template-columns property with 3 or more columns of equal width */
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         /* 6. TODO : Add different grid gaps for horizontal and vertical dimensions */
-        grid-gap: 1rem 1rem;
+        grid-gap: 2rem 2rem;
         padding: 10px;
     }
     
@@ -89,7 +126,7 @@
     }
     
     .grid-item:hover {
-        background-color: rgba(23, 21, 166, 0.8);
+        background-color: rgba(23, 78, 106, 0.8);
         color: white;
     }
 
