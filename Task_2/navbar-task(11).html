@@ -16,13 +16,14 @@
         <ul id="left-content">
             <li><a href="#">Home</a></li>
             <!-- 2. TODO Add About and Contact List items-->
-
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
 
 
         <div class="search-navbar" >
             <!-- 3. TODO add action to form to send data to google.com  -->
-                <form>
+                <form action="https://www.google.com/">
                   <input type="text" placeholder="Search.." name="search">
                   <button type="submit">🔎</button>
                 </form>
@@ -46,6 +47,7 @@
     
     ul {
         /* 4. TODO: change list type to remove bullet point */
+        list-style-type: none;
     }
 
     /*  Navbar */
@@ -56,13 +58,19 @@
         padding: 20px;
 
         /* 5. TODO Make navbar flex and set flex direction and flex wrap it to be responsive */
-
+        display: flex;
+        flex-direction: row;
+        
         display: block; 
         justify-content: space-between;
         align-items: center;
+        border-radius: 0.5rem;
+        flex-wrap: wrap;
         
         /* 6. TODO Make navbar stick (Hint: set top to 0) */
-        position: static;
+        position: sticky;
+        top: 0px;
+
     }
 
     .navbar a {
@@ -73,6 +81,8 @@
 
     .navbar a:hover {
         /* 7. TODO : change color to aqua on hover */
+        color: #111;
+        background-color: aqua;
     }
 
     /* left content */
@@ -82,20 +92,23 @@
         display: flex;
         justify-content: space-between;
         /* 8. TODO : Set width to 30% without using width property */
+        flex-basis: 30%;
         flex-wrap: wrap;
     }
-
+    
     
     /* search bar */
-
-
+    
+    
     .navbar  .search-navbar input[type=text] {
         /* 9. TODO : Match the padding of the button  */
+        padding: 9px;
+        padding-bottom: 6px; 
         margin-top: 8px;
         font-size: 17px;
         border: none;
     }
-
+    
     .navbar .search-navbar button {
         padding: 6px 10px;
         margin-top: 8px;
@@ -107,10 +120,12 @@
     }
     
     /* right content */
-
+    
     .navbar #right-content {
         display: flex;
+        flex-direction: row;
         /* 10. TODO : set justify content to flex-end */
+        justify-content: flex-end;
         flex-wrap: wrap;
     }
 
@@ -118,9 +133,10 @@
         margin-left: 20px;
     }
 
-    @media screen and (max-width: 1050px) {
+    @media screen and (max-width: 600px) {
         .search-navbar {
             /* 11. TODO : Make the search bar disappear( Hint: may need to use !important) */
+            display: none;
         }
     }
 
