@@ -4,6 +4,10 @@ window.addEventListener('DOMContentLoaded', () => {
     //     tiles(make sure that you get all tiles and store them in array), current-player-text, announcer-text, resetButton
     // )
 
+    let tiles = document.querySelectorAll(".tile");
+    let current_player_text = document.querySelector(".current-player-text");
+    let announcer_text = document.querySelector(".announcer-text");
+    let resetButton = document.getElementById("reset");
 
     let board = ['', '', '', '', '', '', '', '', '']; 
     // This is the board representation, you will need to update this board whenever the user makes a move (just for 
@@ -42,9 +46,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // TODO : make sure that you display the correct message for each case by making the innerHTML of the announcer-text element
         // For one of these 'Player <span class="playerO">O</span> Won' or 'Player <span class="playerX">X</span> Won' or 'Tie' 
-
-
+        switch(type) {
+            case PLAYERX_WON:
+                announcer_text.innerHTML = "Player <span class='playerX'>X</span> Won";
+                break;
+            case PLAYERO_WON:
+                announcer_text.innerHTML = "Player <span class='playerO'>O</span> Won";
+                break;
+            case TIE:
+                announcer_text.innerHTML = "Tie";
+        }
         // TODO : make sure that you remove the 'hide' class from the announcer-text element so that the message is displayed
+        announcer_text.classList.remove("hide");
     };
 
     function handleResultValidation() {
@@ -80,9 +93,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
     // if the board is full and there is no winner(isFinished is false) then the game is a tie
+    console.log(!board.includes(''))
     if (!board.includes(''))
-        announce(TIE); 
-
+        announce(TIE);
     }
 
 
@@ -98,37 +111,70 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // TODO : update the current player class (change playerX to playerO or vice versa) from the current-player-text element 
         // to the next player by changing the text of the element 
-        
         // TODO : make sure that you change the currentPlayer variable to the next player by changing the value of the variable 
-
         // TODO : change the innerHTML of the current-player-text element to currentPlayer variable
+        
+        if (currentPlayer === 'X') {
+            current_player_text.classList.add('playerO');
+            current_player_text.classList.remove('playerX');
+            current_player_text.innerHTML = "O";
+            currentPlayer = 'O';
+        }
+        else {
+            current_player_text.classList.add('playerX');
+            current_player_text.classList.remove('playerO');
+            current_player_text.innerHTML = "X";
+            currentPlayer = 'X';
+        }
 
     }
 
     // this function will be called whenever the user clicks on a tile
     const userAction = (tile, index) => {
         // check if the action is valid and the game is still active
+        console.log(isGameActive);
         if(isValidAction(tile) && isGameActive) {
+            console.log("valid action");
             tile.innerText = currentPlayer; // update the tile text to the current player
             tile.classList.add(`player${currentPlayer}`); // add the class of the current player to the tile
             board[index] = currentPlayer; // update the board representation with the current player
             handleResultValidation(); // check if the game is over or not
+            console.log(isGameActive);
             changePlayer(); // change the player after each move
         }
     }
 
     // this function will be called when the user clicks on the reset button
     const resetBoard = () => {
+        isGameActive = true;
         // TODO : make sure that you reset the board representation to empty strings
+        board = ['', '', '', '', '', '', '', '', ''];
         // TODO : make sure that you add 'hide' class to the announcer-text element
+        announcer_text.classList.add("hide");
         // TODO : make sure that you change the currentPlayer variable to X
+        current_player_text.classList.add('playerX');
+        current_player_text.classList.remove('playerO');
+        current_player_text.innerHTML = "X";
+        currentPlayer = 'X';
         // TODO : make sure that you loop over the tile elements and remove the text from each tile 
         // and remove playerX and playerO classes from each tile
+        for (let i = 0; i < tiles.length; i++) {
+            tiles[i].innerText = "";
+            tiles[i].classList.remove("playerX");
+            tiles[i].classList.remove("playerO");
+        }
     }
 
     // TODO : make sure that you loop over the tiles and add a click event listener to each tile
     // the event listener should call the userAction function and pass the tile and the index of the tile as arguments
-
+    for (let i = 0; i < tiles.length; i++) {
+        tiles[i].addEventListener("click", () => {
+            userAction(tiles[i], i);
+        });
+    }
     // TODO : make sure that you add a click event listener to the resetButton element
     // the event listener should call the resetBoard function
+    resetButton.addEventListener("click", () => {
+        resetBoard();
+    });
 });
