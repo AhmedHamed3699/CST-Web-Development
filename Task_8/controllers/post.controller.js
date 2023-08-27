@@ -19,13 +19,16 @@ const postController = {
     findAll: async (req, res) => {
         try {
             let allPosts = await Post.find({});
+            if (allPosts.length === 0) {
+                return res.status(404).json({ message: "No posts found" });
+            }
             if (req.user.role === "User") {
                 allPosts = allPosts.filter(post => {
-                    return (post.authorId === req.user._id)
+                    return (post.authorId !== req.user._id)
                 });
             }
             if (allPosts.length === 0) {
-                return res.status(404).json({ message: "No posts found" });
+                return res.status(403).json({ message: "Forbidden. You don't have any posts to see" });
             }
             res.status(201).json({ message: "Here are all posts", allPosts });
         }
@@ -36,12 +39,13 @@ const postController = {
     },
     findOne: async (req, res) => {
         try {
-            let post = await Post.findOne(req.param.id);
+            const id = req.params.id;
+            let post = await Post.findById(id);
             if (!post) {
                 return res.status(404).json({ message: "Post not found" });
             }
             if (req.user.role === "User") {
-                if (post.authorId !== req.user.id) {
+                if (post.authorId === req.user._id) {
                     return res.status(403).json({ message: "Forbidden. You are not allowed to see this post" });
                 }
             }
@@ -54,8 +58,8 @@ const postController = {
     },
     delete: async (req, res) => {
         try {
-            const { id } = req.user.id;
-            let post = await Post.findOne(id);
+            const { id } = req.params.id;
+            let post = await Post.findById(id);
             if (!post) {
                 return res.status(404).json({ message: "Post not found" });
             }

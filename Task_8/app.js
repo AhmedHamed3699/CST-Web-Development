@@ -20,7 +20,7 @@ mongoose.connect(process.env.DB_URI)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRouter);
-app.use('/user', authMiddleware, userRouter);
+app.use('/users', authMiddleware, userRouter);
 app.use('/posts', authMiddleware, postRouter);
 
 app.get('/', (req, res) => {

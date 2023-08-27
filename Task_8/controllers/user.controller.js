@@ -19,7 +19,7 @@ const userController = {
     },
     findOne: async (req, res) => {
         try {
-            let user = await User.findOne(req.param.id);
+            let user = await User.findById(req.params.id);
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
@@ -32,8 +32,8 @@ const userController = {
     },
     delete: async (req, res) => {
         try {
-            const { id } = req.user.id;
-            let user = await User.findOne(id);
+            const { id } = req.params.id;
+            let user = await User.findById(id);
             if (!user) {
                 return res.status(404).json({ message: "User not found" });
             }
